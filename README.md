@@ -13,7 +13,6 @@
 
 ![HopFieldNetwork](data/hopfield_network.png)
 
-
 HNN は、大きく 以下2段階の動作をする。
 
 - 学習 ( Training ): 与えられた学習データをネットワークの内部状態として記憶する
