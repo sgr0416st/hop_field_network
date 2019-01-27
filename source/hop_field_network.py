@@ -91,7 +91,7 @@ class HopFieldNetwork:
 
 
 # opencvで結果を描画するための関数。
-def show_image_for_opencv(img_list, img_col, img_row):
+def show_image_for_opencv(img_list, img_col, img_row, img_len):
     """show process image using openCV.
 
     the image integrated start image, recognize process image and last image.
@@ -108,11 +108,9 @@ def show_image_for_opencv(img_list, img_col, img_row):
 
     """
     # サイズの指定・計算
-    img_len = 160
     margin = 40
     margin_gray_level = 100
     marged_width = img_len*img_col + margin*(image_col + 1)
-    img_size = (img_len, img_len)
     blank_size = (img_len, margin)
     blank_size_2 = (margin, marged_width)
     ar_strat_pt = (round(margin/4), round(img_len/2))
@@ -131,14 +129,7 @@ def show_image_for_opencv(img_list, img_col, img_row):
         img_line = np.full((img_len, 0), margin_gray_level, dtype=np.uint8)
         for row in range(img_row):
             img = img_list[col*3 + row].copy()
-            img_arr = None
-            for i in range(len(img)):
-                if img[i] == 1:
-                    img[i] = 255
-                else:
-                    img[i] = 0
-                img_arr = np.array(img).reshape(img_col, img_row).astype(np.uint8)
-                img_arr = cv2.resize(img_arr, img_size, interpolation=cv2.INTER_NEAREST)
+            img_arr = convert_image(img, img_col, img_row, img_len)
             if col == 0 and row == 0:
                 img_line = cv2.hconcat([img_line, img_margin_1, img_arr])
             else:
@@ -150,6 +141,18 @@ def show_image_for_opencv(img_list, img_col, img_row):
     cv2.imshow("process", img_marge)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+
+def convert_image(img_data, img_col, img_row, img_len):
+    img_size = (img_len, img_len)
+    for i in range(len(img_data)):
+        if img_data[i] == 1:
+            img_data[i] = 255
+        else:
+            img_data[i] = 0
+        img_arr = np.array(img_data).reshape(img_col, img_row).astype(np.uint8)
+        img_arr = cv2.resize(img_arr, img_size, interpolation=cv2.INTER_NEAREST)
+    return img_arr
 
 
 """
@@ -172,6 +175,7 @@ if __name__ == '__main__':
     test_data = np.array(test_data)
     image_col = 3
     image_row = 3
+    img_len = 160
     print("training_data: \n", training_data)
     hf = HopFieldNetwork(len(training_data[0]))
     print("------------- training step -------------------")
@@ -187,5 +191,7 @@ if __name__ == '__main__':
     print("------------ show image ----------------")
     print("show process image for openCV. please check.")
     print("after check, please push enter on the image window.")
-    show_image_for_opencv(img_list, image_col, image_row)
+    cv2.imshow("training", convert_image(training_data[0], image_col, image_row, img_len))
+    cv2.imshow("test", convert_image(test_data, image_col, image_row, img_len))
+    show_image_for_opencv(img_list, image_col, image_row, img_len)
     print("------------ finish ----------------")
