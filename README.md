@@ -54,7 +54,8 @@ python source/hop_field_network.py
 
 トレーニングデータを用いて記憶した後、
 テストデータを用いてネットワークが記憶を思い出すデモ。  
-トレーニングデータ画像とテストデータ画像、および認識の途中経過の画像を表示する。  
+トレーニングデータ画像とテストデータ画像、および認識の途中経過の画像を表示する。
+ターミナルで動くか確認していないです。  
 
 # Licence
 This software is released under the MIT License, see [LICENCE.txt](LICENCE.txt)
