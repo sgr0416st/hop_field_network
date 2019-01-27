@@ -1,33 +1,35 @@
-# Todo 修正したいところとか
+# Overview
 
-- [ ] change in.
-- [x] Success
+ホップフィールドネットワーク(Hopfield Network: HN)のPythonでの実装です。
 
-# Overview 概要
 
-${PROJECT_NAME}.${NAME}
-Date: ${YEAR}/${MONTH}/${DAY}
+# Description
 
-# Description 詳細
+ホップフィールドネットワークは以下の２つの特徴を持つネットワークである。
+1. 相互結合型
+2. 非同期型
+なお、自己結合係数は0となり、細胞間の双方向の結合係数が等しい。
 
-Change me.
+![HopFieldNetwork](data/hopfield_network.png)
 
-# create envs. 仮想環境の作り方
 
-Assuming that conda is installed.
+HNN は、大きく 以下2段階の動作をする。
+
+- 学習 ( Training ): 与えられた学習データをネットワークの内部状態として記憶する
+- 更新 ( Updating ): 新しい入力値を受け取り、学習したデータのうちどれに近いかを思い出して出力する
+
+詳細なアルゴリズムに関しては [こちらのページ](http://sinhrks.hatenablog.com/entry/2014/12/30/221538)
+を参考にされたい。
+
+# create envs
+
 Condaがインストールされていることが前提。
 
-### use 32bit. 64bit上で32bit環境を使う時用
-
 ```commandline
-set CONDA_FORCE_32BIT=1
+conda create -n ${PROJECT_NAME} python=3.6
 ```
 
-```commandline
-conda create -n ${PROJECT_NAME} python=3.5.3
-```
-
-# Activation of Python environment. 仮想環境に入る
+仮想環境に入る
 
 ```commandline:for windows
 activate ${PROJECT_NAME}
@@ -37,19 +39,19 @@ activate ${PROJECT_NAME}
 source activate ${PROJECT_NAME}
 ```
 
-# Requirement / install package. パッケージのインストール
+# Requirement / install package
 
 ```commandline
-conda install numpy
+pip install numpy
+pip install opencv-python
 ```
 
-# Demo / Usage 使用例
+# Demo / Usage 
 
 ```commandline
-# Execution command.Be sure to activation.
-python main.py
+python source/hop_field_network.py
 ```
 
-# Licence ライセンス
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+# Licence
+This software is released under the MIT License, see [LICENCE.txt](LICENCE.txt)
 </code>
