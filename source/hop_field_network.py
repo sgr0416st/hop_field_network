@@ -185,6 +185,7 @@ if __name__ == '__main__':
     output, img_list = hf.recognize(test_data, len(test_data))
     print("output: ", output)
     print("------------ show image ----------------")
-    show_image_for_opencv(img_list, image_col, image_row)
     print("show process image for openCV. please check.")
+    print("after check, please push enter on the image window.")
+    show_image_for_opencv(img_list, image_col, image_row)
     print("------------ finish ----------------")
